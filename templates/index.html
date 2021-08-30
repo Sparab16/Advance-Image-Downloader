@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+        integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container index-css text-center user-select-none">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_bpqri9y8.json"  background="transparent"  speed="1"  style="width: 350px; height: 350px; margin-left: 100px;"  loop  autoplay></lottie-player>
+        <form action="/job_submitted" method="POST">
+            <!-- Search Query -->
+            <div class="input-group">
+                <span class="input-group-text" id="search-query">
+                    Search Query
+                </span>
+                <input type="text" class="form-control" placeholder="Enter the Search Query" name="search-query">
+            </div>
+
+            <!-- Date and Time -->
+            <div class="input-group">
+                <span class="input-group-text">
+                    Date
+                </span>
+                <input type="date" id='txtDate' class="form-control" name="date">
+                <span class="input-group-text"
+                    style="margin-left: 10px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
+                    Time
+                </span>
+                <input type="time" id='txtTime' class="form-control" name="time">
+            </div>
+
+            <!-- Email Address -->
+            <div class="input-group">
+                <span class="input-group-text">
+                    Email
+                </span>
+                <input type="email" class="form-control" placeholder="Enter your Email" name="email">
+            </div>
+
+            <!-- Number of Images -->
+            <div class="input-group">
+                <span class="input-group-text">Number of Images</span>
+                <input type="number" class="form-control" aria-label="Number input with dropdown button" name="images" min="1" max="500">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="input-group">
+                <input class="btn btn-grad" type="submit" value="Submit">
+            </div>
+
+        </form>
+    </div>
+    <script src='../static/js/main.js'></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
+
+</html>

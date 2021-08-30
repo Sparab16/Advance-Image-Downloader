@@ -1,0 +1,5 @@
+cloud_config_path="CLOUD_CONFIG_PATH"
+cassandra_uname="CASSANDRA_USERNAME"
+cassandra_password="CASSANDRA_PASSWORD"
+keyspace_name="CASSANDRA_KEYSPACE_NAME"
+table_name="CASSANDRA_TABLE_NAME"

@@ -1,0 +1,6 @@
+.env
+__pycache__
+.idea
+.vscode
+secure-connect-astraimage.zip
+config_copy
