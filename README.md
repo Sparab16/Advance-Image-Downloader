@@ -184,12 +184,12 @@ Ans - If some error occurs at the backend the user will get email notification  
   
 ## Documentation
 
-[High level design documentation](Docs/Advance_Image_Generator-HLD.docx)<br>
+[High level design documentation](Docs/Advance_Image_Generator-HLD.pdf)<br>
 
-[comment]: <> ([Low level design documentation]&#40;https://linktodocumentation&#41;<br>)
+[Low level design documentation](Docs/Advance_Image_Generator-LLD.pdf)<br>
 
-[comment]: <> ([Wireframe]&#40;Docs/Advance-Image-Downloader_Wireframe.pdf&#41;<br>)
+[Wireframe](Docs/Advance-Image-Downloader_Wireframe.pdf)<br>
 
-[comment]: <> ([Architecture]&#40;https://linktodocumentation&#41;)
+[Architecture](Docs/Advance_Image_Downloader-Architecture.pdf)
 
   
