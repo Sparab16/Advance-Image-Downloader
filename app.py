@@ -62,7 +62,7 @@ def job_submitted():
                 schedule_job = ScheduleJob()
 
                 # Adding the job in the scheduler
-                schedule_job.insert_request(search_query, date, time, no_images, email, req_id)
+                schedule_job.insert_request(search_query, date, time, int(no_images), email, req_id)
 
                 logger_obj.print_log('Schedule is added for adding the job in queue', 'info')
 
