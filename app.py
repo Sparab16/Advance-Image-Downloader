@@ -1,5 +1,5 @@
 # Importing the necessary imports
-
+import re
 import uuid
 from flask import Flask, render_template, request, send_file
 from flask_cors import cross_origin
@@ -50,29 +50,36 @@ def job_submitted():
             date = request.form['date']
             time = request.form['time']
             email = request.form['email'].lower()
-            no_images = int(request.form['images'])
+            no_images = request.form['images']
 
-            # Creating the unique ID for the request generated
-            req_id = uuid.uuid4()
+            is_valid, error = validate_inputs(search_query, date, time, email, no_images)
 
-            # Creating a object for th e scheduler
-            schedule_job = ScheduleJob()
+            if is_valid:
+                # Creating the unique ID for the request generated
+                req_id = uuid.uuid4()
 
-            # Adding the job in the scheduler
-            schedule_job.insert_request(search_query, date, time, no_images, email, req_id)
+                # Creating a object for th e scheduler
+                schedule_job = ScheduleJob()
 
-            logger_obj.print_log('Schedule is added for adding the job in queue', 'info')
-            # Todo - Use request id to populate Image URl or Just add right away in the database when doing the
-            #  insertion operation
+                # Adding the job in the scheduler
+                schedule_job.insert_request(search_query, date, time, no_images, email, req_id)
 
-            # Todo - To implement logs inside the cassandra database
+                logger_obj.print_log('Schedule is added for adding the job in queue', 'info')
 
-            # Rendering the Job Submitted template
-            logger_obj.print_log('Rendering the job_submitted.html template', 'info')
-            return render_template('job_submitted.html')
+                # Rendering the Job Submitted template
+                logger_obj.print_log('Rendering the job_submitted.html template', 'info')
+                return render_template('job_submitted.html')
+            else:
+                logger_obj.print_log('(app.py) - Something went wrong ' + error, 'exception')
+                return render_template('error.html', msg=error)
+
         else:
             logger_obj.print_log('(app.py) - Something went wrong Method is not allowed', 'exception')
             return render_template('error.html', msg='Method not allowed')
+
+    except ValueError:
+        logger_obj.print_log('(app.py) - Something went wrong. No of images must be a number', 'exception')
+        return render_template('error.html', msg='No of images must be a number')
 
     except Exception as e:
         logger_obj.print_log('(app.py) - Something went wrong ' + str(e), 'exception')
@@ -99,6 +106,44 @@ def download(search_term, req_id):
     except Exception as e:
         logger_obj.print_log('(app.py) - Something went wrong ' + str(e), 'exception')
         return render_template('error.html', msg='This link has expired')
+
+
+def validate_inputs(search_query, date, time, email, no_images):
+    """
+    Function is responsible for validating the inputs given by the user
+    :param search_query: search term by the user
+    :param date: Date for scheduling the job
+    :param time: Time for scheduling the job
+    :param email: Email address of the user
+    :param no_images: No of images given by the user
+    :return: Boolean if the input's are valid
+    """
+    try:
+        # Checking if the queries passed are empty
+        if search_query != '' and date != '' and time != '' and email != '' and no_images != '':
+
+            no_images = int(no_images)  # Converting into integer for further processing
+            # Number of images should be in between 1 and 500
+            if 1 <= no_images <= 500:
+                # Validating the email address
+                if re.search('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+                    return True, None
+                else:
+                    logger_obj.print_log('(app.py (validate_inputs)) - Something went wrong. Email address is invalid',
+                                         'exception')
+                    return False, 'Invalid email address'
+            else:
+                logger_obj.print_log('(app.py (validate_inputs)) - Something went wrong. No of images must be in '
+                                     'between 1 and 500',
+                                     'exception')
+                return False, 'No of images must be in between 1 and 500'
+        else:
+            logger_obj.print_log('(app.py (validate_inputs)) - Something went wrong. One of the inputs is empty',
+                                 'exception')
+            return False, 'One of inputs is empty'
+
+    except Exception as e:
+        raise Exception(e)
 
 
 if __name__ == '__main__':

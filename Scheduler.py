@@ -73,8 +73,8 @@ class ScheduleJob:
                 raise Exception("You have inserted the past date and time")
 
         except Exception as e:
-            logger_obj.print_log('(Scheduler.py(schedule_job) - Something went wrong ' + str(e), 'exception')
-            raise Exception(e)
+            logger_obj.print_log('(Scheduler.py(schedule_job) - Something went wrong. Inputs might be invalid' + str(e), 'exception')
+            raise Exception('Inputs might be invalid')
 
     def delete_files_job_queue(self, req_id, time_to_delete):
         """
